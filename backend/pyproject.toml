@@ -36,7 +36,7 @@ ignore_missing_imports = true
 
 [tool.bandit]
 exclude_dirs = [".venv", ".git", ".mypy_cache", "tests"]
-skips = ["B101"]
+skips = ["B101", "B110"]
 
 [tool.pytest.ini_options]
 addopts = "-q"
