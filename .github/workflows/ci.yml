@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  frontend:
+    uses: alex-pimentel/agenteresolve-ci/.github/workflows/node-quality.yml@main
+    with:
+      working_directory: frontend
+      package_manager: npm
+      coverage: true
+      run_e2e: true
+  backend:
+    uses: alex-pimentel/agenteresolve-ci/.github/workflows/python-quality.yml@main
+    with:
+      working_directory: backend
+      coverage: true
+      coverage_threshold: 0
+  security:
+    permissions:
+      contents: read
+      security-events: write
+    uses: alex-pimentel/agenteresolve-ci/.github/workflows/security-scan.yml@main

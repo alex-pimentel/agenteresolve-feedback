@@ -1,0 +1,42 @@
+[project]
+name = "agenteresolve-feedback-backend"
+version = "0.1.0"
+description = "Classifique feedbacks por sentimento, tema e urgência."
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "httpx",
+  "pydantic-settings",
+  "python-multipart",
+  "pypdf",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "ruff", "mypy", "bandit", "pip-audit", "httpx"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+
+[tool.bandit]
+exclude_dirs = [".venv", ".git", ".mypy_cache", "tests"]
+skips = ["B101"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
