@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    uses: alex-pimentel/agenteresolve-ci/.github/workflows/node-quality.yml@main
+    with:
+      working_directory: .
+      package_manager: npm
+      coverage: true
+      run_e2e: true
+  security:
+    permissions:
+      contents: read
+      security-events: write
+    uses: alex-pimentel/agenteresolve-ci/.github/workflows/security-scan.yml@main
