@@ -20,6 +20,7 @@ jobs:
       coverage: true
       coverage_threshold: 0
   security:
+    needs: [frontend, backend]
     permissions:
       contents: read
       security-events: write
