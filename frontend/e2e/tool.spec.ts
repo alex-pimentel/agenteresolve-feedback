@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('loads the FeedbackClassifier tool directly at the root', async ({ page }) => {
   await page.goto('/');
-  
+
   await expect(page.getByRole('heading', { name: 'FeedbackClassifier' }).first()).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Entrada' })).toBeVisible();
   await expect(page.getByRole('button', { name: /processar/i })).toBeDisabled();
