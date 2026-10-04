@@ -8,3 +8,5 @@ __pycache__/
 results/
 test-results/
 playwright-report/
+*.egg-info/
+.coverage
