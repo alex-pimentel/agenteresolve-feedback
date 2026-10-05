@@ -7,6 +7,8 @@ interface ImportMetaEnv {
   readonly VITE_CLERK_PUBLISHABLE_KEY?: string;
   /** Standalone Louder app URL surfaced by the /louder route. */
   readonly VITE_LOUDER_URL?: string;
+  /** Central login app base URL. */
+  readonly VITE_LOGIN_BASE?: string;
 }
 
 interface ImportMeta {
