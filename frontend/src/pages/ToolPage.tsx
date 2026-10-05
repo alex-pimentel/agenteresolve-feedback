@@ -13,19 +13,22 @@ import { Sparkles } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
 import { JobResult } from '../components/JobResult';
+import { LoginButton } from '../components/LoginButton';
 import { StateMessage } from '../components/StateMessage';
 import { ToolInput } from '../components/ToolInput';
 import { formatBytes, getTool, type ToolConfig } from '../data/tools';
 import {
   createFileJob,
   createTextJob,
+  isInsufficientCredits,
   isProviderUnavailable,
+  isUnauthorized,
   isUnimplemented,
   pollJob,
   type Job,
 } from '../lib/api';
-import { CLERK_PUBLISHABLE_KEY } from '../lib/env';
 import { SERVICE_NAV } from '../lib/nav';
+import { clearServiceToken, loginUrl } from '../lib/session';
 import { LouderPage } from './LouderPage';
 import { NotFoundPage } from './NotFoundPage';
 
@@ -89,6 +92,14 @@ function GatewayToolPage({ tool }: { tool: ToolConfig }) {
         setBetaNotice(
           'Esta ferramenta está em beta e o endpoint ainda não está disponível no gateway.',
         );
+      } else if (isUnauthorized(err)) {
+        clearServiceToken();
+        window.location.assign(loginUrl(window.location.pathname + window.location.search));
+        return;
+      } else if (isInsufficientCredits(err)) {
+        setError(
+          'Créditos insuficientes para esta operação. Acompanhe seu saldo e histórico no portal.',
+        );
       } else if (isProviderUnavailable(err)) {
         setError(
           'Serviço temporariamente indisponível: o provedor de IA não está configurado no servidor. Tente novamente mais tarde.',
@@ -103,10 +114,10 @@ function GatewayToolPage({ tool }: { tool: ToolConfig }) {
 
   return (
     <ServiceShell
-      publishableKey={CLERK_PUBLISHABLE_KEY}
       services={SERVICE_NAV}
       title={tool.name}
       description={tool.description}
+      authSlot={<LoginButton />}
     >
       {tool.note ? (
         <StateMessage tone="info" title="Aviso" className="mb-6">

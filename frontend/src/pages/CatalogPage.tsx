@@ -2,7 +2,7 @@ import { Badge, ServiceShell } from '@agenteresolve/ui';
 
 import { CATEGORIES, TOOLS, toolsByCategory } from '../data/tools';
 import { ToolCard } from '../components/ToolCard';
-import { CLERK_PUBLISHABLE_KEY } from '../lib/env';
+import { LoginButton } from '../components/LoginButton';
 import { SERVICE_NAV } from '../lib/nav';
 
 export function CatalogPage() {
@@ -10,10 +10,10 @@ export function CatalogPage() {
 
   return (
     <ServiceShell
-      publishableKey={CLERK_PUBLISHABLE_KEY}
       services={SERVICE_NAV}
       title="Ferramentas de IA"
       description="Um catálogo único de ferramentas de texto, visão e áudio. Sem persistir o seu conteúdo: entradas e resultados expiram em 24h."
+      authSlot={<LoginButton />}
     >
       <p className="mb-10 text-sm text-muted-foreground">
         {TOOLS.length} ferramentas · {available} disponíveis agora · o restante em beta.

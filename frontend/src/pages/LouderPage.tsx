@@ -3,8 +3,9 @@ import { ExternalLink } from 'lucide-react';
 
 import { StateMessage } from '../components/StateMessage';
 import type { ToolConfig } from '../data/tools';
-import { CLERK_PUBLISHABLE_KEY, LOUDER_URL } from '../lib/env';
+import { LOUDER_URL } from '../lib/env';
 import { SERVICE_NAV } from '../lib/nav';
+import { LoginButton } from '../components/LoginButton';
 
 export interface LouderPageProps {
   tool: ToolConfig;
@@ -17,10 +18,10 @@ export interface LouderPageProps {
 export function LouderPage({ tool }: LouderPageProps) {
   return (
     <ServiceShell
-      publishableKey={CLERK_PUBLISHABLE_KEY}
       services={SERVICE_NAV}
       title={tool.name}
       description={tool.description}
+      authSlot={<LoginButton />}
     >
       <Card className="gap-5">
         <CardHeader>
