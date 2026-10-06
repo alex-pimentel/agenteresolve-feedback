@@ -42,7 +42,7 @@ async def _parse(request: Request) -> tools.ToolInput:
     if "multipart/form-data" in content_type:
         form = await request.form()
         for key, value in form.items():
-            if isinstance(value, UploadFile):
+            if hasattr(value, "read") and hasattr(value, "filename"):
                 file_bytes = await value.read()
                 filename = value.filename
                 params["content_type"] = value.content_type
