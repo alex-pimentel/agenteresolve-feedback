@@ -19,12 +19,13 @@ const EXPECTED_SLUGS = [
   'tts',
   'audio-enhance',
   'voicechat',
+  'youtube2mp3',
 ];
 
 describe('tool catalogue', () => {
-  it('lists the 16 canonical tools with unique slugs', () => {
-    expect(TOOLS).toHaveLength(16);
-    expect(new Set(TOOL_SLUGS).size).toBe(16);
+  it('lists the 17 canonical tools with unique slugs', () => {
+    expect(TOOLS).toHaveLength(17);
+    expect(new Set(TOOL_SLUGS).size).toBe(17);
     expect([...TOOL_SLUGS].sort()).toEqual([...EXPECTED_SLUGS].sort());
   });
 
@@ -39,7 +40,7 @@ describe('tool catalogue', () => {
       (count, category) => count + toolsByCategory(category.id).length,
       0,
     );
-    expect(total).toBe(16);
+    expect(total).toBe(17);
   });
 
   it('marks translate as implemented and louder as client-side', () => {
@@ -47,6 +48,13 @@ describe('tool catalogue', () => {
     expect(getTool('translate')?.beta).toBe(false);
     expect(getTool('louder')?.route).toBe('client');
     expect(getTool('louder')?.beta).toBe(false);
+  });
+
+  it('marks youtube2mp3 as an implemented audio gateway tool', () => {
+    expect(getTool('youtube2mp3')?.implemented).toBe(true);
+    expect(getTool('youtube2mp3')?.beta).toBe(false);
+    expect(getTool('youtube2mp3')?.route).toBe('gateway');
+    expect(getTool('youtube2mp3')?.result).toBe('audio');
   });
 
   it('marks every gateway tool as implemented (providers may be unavailable at runtime)', () => {
