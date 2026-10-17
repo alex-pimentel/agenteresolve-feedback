@@ -49,7 +49,6 @@ describe('tool catalogue', () => {
     expect(getTool('louder')?.beta).toBe(false);
   });
 
-
   it('marks every gateway tool as implemented (providers may be unavailable at runtime)', () => {
     for (const tool of TOOLS) {
       if (tool.route === 'gateway') {
