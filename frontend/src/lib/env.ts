@@ -1,4 +1,4 @@
-const DEFAULT_API_BASE = '';
+const DEFAULT_API_BASE = 'https://api.agenteresolve.com.br';
 const DEFAULT_LOUDER_URL = 'https://louder.agenteresolve.com.br';
 
 /** Base URL of the AI services gateway (no trailing slash). */

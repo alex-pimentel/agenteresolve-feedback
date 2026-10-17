@@ -8,6 +8,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.datastructures import UploadFile
 
 from . import tools
 from .config import get_settings
@@ -42,7 +43,7 @@ async def _parse(request: Request) -> tools.ToolInput:
     if "multipart/form-data" in content_type:
         form = await request.form()
         for key, value in form.items():
-            if hasattr(value, "read") and hasattr(value, "filename"):
+            if isinstance(value, UploadFile):
                 file_bytes = await value.read()
                 filename = value.filename
                 params["content_type"] = value.content_type
